@@ -1,48 +1,34 @@
-import { useState } from 'react';
 import './App.css'
-import audiomusic from './assets/bg.mp3'
-import { useRef ,useEffect} from 'react';
+import audioSrc from './assets/bg.mp3'
+import React, {useRef,useState, useEffect } from 'react';
 
-function BackgroundAudio() {
-  const audioRef = useRef(null);
-  useEffect(() => {
-    const audio = audioRef.current;
 
-    audio.loop = true; // Ensure the audio loops indefinitely
-    audio.play();
 
-    // Optional: Add event listener for audio end
-    audio.addEventListener('ended', () => {
-      audio.currentTime = 0; // Reset to the beginning
-      audio.play(); // Start playing again
-    });
-
-    return () => {
-      audio.pause();
-      audio.currentTime = 0;
-    };
-  }, []);
-
-  return (
-    <audio ref={audioRef} src={audiomusic} cache={false} />
-  );
-
-}
 
 function App() {
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const [isBlackAndWhite, setIsBlackAndWhite] = useState(false);
+  const audioRef = useRef(null);
 
+  const handleYes = () => {
+    setIsAudioPlaying(true);
+  };
+
+  const handleNo = () => {
+    setIsBlackAndWhite(true);
+  };
+
+ 
 return (
 
   <div className="flex flex-col">
-      
-
-  {/* Header Section: Our Love Story */}
-  <BackgroundAudio/>
+  
   <div className="bg-[#c98dc0] h-[90vw] md:h-[40vh] flex items-center justify-center text-4xl md:text-5xl text-[#fffefb] font-bold">
     <h1>Our Love Story</h1>
   </div>
 
   {/* Subheader Section: Will You Be Mine? */}
+  <BackgroundAudio/>
   <div className="bg-[#b38cb7] h-[50vw] md:h-[35vh] text-3xl flex flex-col items-center justify-center p-4 shadow-lg text-[#fffbfe] my-0.9">
     <span className="text-center">Will you Be Mine?</span>
     <p className="text-center mt-2 text-lg md:text-xl">
@@ -75,6 +61,27 @@ return (
   </div>
 </div>
 );
+}
+
+
+function BackgroundAudio() {
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+
+    audio.loop = true;
+    audio.play();
+
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, []);
+
+  return (
+    <audio ref={audioRef} src={audioSrc} />
+  );
 }
 
 
