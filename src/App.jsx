@@ -2,9 +2,9 @@ import { useState } from 'react';
 import './App.css'
 import audio from './assets/bg.mp3'
 import { useRef ,useEffect} from 'react';
-function App() {
-  const audioRef = useRef(null);
 
+function BackgroundAudio() {
+  const audioRef = useRef(null);
   useEffect(() => {
     const audio = audioRef.current;
 
@@ -16,11 +16,21 @@ function App() {
       audio.currentTime = 0;
     };
   }, []);
+
+  return (
+    <audio ref={audioRef} src={audio} cache={false} />
+  );
+
+}
+
+function App() {
+
 return (
   <div className="flex flex-col">
-        <audio ref={audioRef} src={audio} />
+      
 
   {/* Header Section: Our Love Story */}
+  <BackgroundAudio/>
   <div className="bg-[#c98dc0] h-[90vw] md:h-[40vh] flex items-center justify-center text-4xl md:text-5xl text-[#fffefb] font-bold">
     <h1>Our Love Story</h1>
   </div>
@@ -105,4 +115,8 @@ function AcceptingProposal() {
     </div>
   );
 }
+
+
+
+
 export default App;
