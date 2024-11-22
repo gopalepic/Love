@@ -7,9 +7,15 @@ function BackgroundAudio() {
   const audioRef = useRef(null);
   useEffect(() => {
     const audio = audioRef.current;
- 
-    audio.loop = true;
+
+    audio.loop = true; // Ensure the audio loops indefinitely
     audio.play();
+
+    // Optional: Add event listener for audio end
+    audio.addEventListener('ended', () => {
+      audio.currentTime = 0; // Reset to the beginning
+      audio.play(); // Start playing again
+    });
 
     return () => {
       audio.pause();
@@ -26,7 +32,7 @@ function BackgroundAudio() {
 function App() {
 
 return (
-  
+
   <div className="flex flex-col">
       
 
@@ -78,6 +84,9 @@ function AcceptingProposal() {
   const handleResponse = (response) => {
     if (response === 'No') {
       // Repeat the proposal
+      <div>
+        Ek tarfaa pyar bhot dard deta hai 🥹
+      </div>
       setShowProposal(true);
     } else {
       // Stop the proposal
