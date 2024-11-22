@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import './App.css'
-import audio from './assets/bg.mp3'
+import audiomusic from './assets/bg.mp3'
 import { useRef ,useEffect} from 'react';
 
 function BackgroundAudio() {
   const audioRef = useRef(null);
   useEffect(() => {
     const audio = audioRef.current;
-
+ 
     audio.loop = true;
     audio.play();
 
@@ -18,7 +18,7 @@ function BackgroundAudio() {
   }, []);
 
   return (
-    <audio ref={audioRef} src={audio} cache={false} />
+    <audio ref={audioRef} src={audiomusic} cache={false} />
   );
 
 }
@@ -26,6 +26,7 @@ function BackgroundAudio() {
 function App() {
 
 return (
+  
   <div className="flex flex-col">
       
 
@@ -69,6 +70,7 @@ return (
 </div>
 );
 }
+
 
 function AcceptingProposal() {
   const [showProposal, setShowProposal] = useState(true);
