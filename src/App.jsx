@@ -13,6 +13,7 @@ function BackgroundAudio(props) {
     return () => {
       audio.pause();
       audio.currentTime = 0; // Reset to the beginning
+
     };
   }, []); // Empty dependency array ensures the effect runs only once
 
@@ -42,29 +43,10 @@ function App() {
       audio.play();
     }
   }, [isAudioPlaying]);
-return (
-
-  <div className="flex flex-col">
-      
-
+return (      
+<div>
   {/* Header Section: Our Love Story */}
-  <h2 className="text-2xl font-semibold text-pink-500 text-center">
-      Would you like to feel my emotions?
-    </h2>
-  <div className="flex justify-center gap-4">
-  <button
-    className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded"
-    onClick={handleYes}
-  >
-    Yes, Forever
-  </button>
-  <button
-    className="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded"
-    onClick={handleNo}
-  >
-    No, Never
-  </button>
-</div>
+  
   <BackgroundAudio/>
   <div className="bg-[#c98dc0] h-[90vw] md:h-[40vh] flex items-center justify-center text-4xl md:text-5xl text-[#fffefb] font-bold">
     <h1>Our Love Story</h1>
