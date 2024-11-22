@@ -1,9 +1,25 @@
+import { useState } from 'react';
 import './App.css'
-
+import audio from './assets/bg.mp3'
+import { useRef ,useEffect} from 'react';
 function App() {
+  const audioRef = useRef(null);
 
+  useEffect(() => {
+    const audio = audioRef.current;
+
+    audio.loop = true;
+    audio.play();
+
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, []);
 return (
   <div className="flex flex-col">
+        <audio ref={audioRef} src={audio} />
+
   {/* Header Section: Our Love Story */}
   <div className="bg-[#c98dc0] h-[90vw] md:h-[40vh] flex items-center justify-center text-4xl md:text-5xl text-[#fffefb] font-bold">
     <h1>Our Love Story</h1>
@@ -32,7 +48,61 @@ return (
       As we stand here today, I can't imagine my life without you. You are my heart, my soul, and my everything. So, I ask you: Will you marry me, and spend forever with me?
     </p>
   </div>
+  <div className='flex flex-col items-center justify-center text-center h-auto px-4 py-6 bg-[#f5e1f4]'>
+    <h1 className=' text-3xl text-[#9c7a9d]'>Would you accept my proposal</h1>
+
+         
+          <AcceptingProposal/>
+    
+       
+  </div>
 </div>
 );
+}
+
+function AcceptingProposal() {
+  const [showProposal, setShowProposal] = useState(true);
+
+  const handleResponse = (response) => {
+    if (response === 'No') {
+      // Repeat the proposal
+      setShowProposal(true);
+    } else {
+      // Stop the proposal
+      handleYesResponse();
+      setShowProposal(false);
+    }
+  };
+
+  const handleYesResponse = () => {
+    const whatsappNumber = '+918168251855'; // Replace with the actual Indian number
+    const message = 'I accept your love!';
+    const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.location.href = whatsappLink;
+  };
+
+  return (
+    <div className="bg-pink-100 p-8 rounded-lg">
+      {showProposal && (
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-pink-600">Will you accept my love?</h2>
+          <div className="flex justify-center gap-4 mt-4">
+            <button
+              className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded"
+              onClick={() => handleResponse('Yes')}
+            >
+              Yes
+            </button>
+            <button
+              className="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded"
+              onClick={() => handleResponse('No')}
+            >
+              No
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 export default App;
